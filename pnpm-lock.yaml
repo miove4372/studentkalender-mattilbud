@@ -11,6 +11,9 @@ importers:
       '@perplexity-ai/perplexity_ai':
         specifier: ^0.38.5
         version: 0.38.5
+      '@upstash/redis':
+        specifier: ^1.38.4
+        version: 1.38.4
       '@vercel/kv':
         specifier: ^3.0.0
         version: 3.0.0
