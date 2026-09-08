@@ -6,7 +6,7 @@ export default async function RedisData() {
     token: process.env["UPSTASH_REDIS_REST_TOKEN"],
   });
 
-  const data = await redis.get("foo");
+  const data = await redis.get<string>("foo");
   console.log(data);
 
   return data;

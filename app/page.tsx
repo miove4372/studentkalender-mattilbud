@@ -11,7 +11,7 @@ export default async function Home() {
     <div>
       <div
       className="flex justify-center"
-      dangerouslySetInnerHTML={{ __html: data }}
+      dangerouslySetInnerHTML={{ __html: data ?? "" }}
     />
     </div>
   );
