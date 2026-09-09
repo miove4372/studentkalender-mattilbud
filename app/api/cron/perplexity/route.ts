@@ -1,5 +1,6 @@
 import Perplexity from "@perplexity-ai/perplexity_ai";
 import { Redis } from "@upstash/redis";
+import { NextResponse } from "next/server";
 
 const QUERRY_epost = `ROLE & CONTEXT:
 You are an expert student-economy newsletter editor. Your job is to create a weekly newsletter called 'Student-Kupp' that highlights the best deals for students in Norway, focusing on budget-friendly, healthy eating and essential non-food purchases.
@@ -47,8 +48,13 @@ OUTPUT FORMAT & DESIGN RULES (CRITICAL):
 - The language of the newsletter content must be Norwegian (Bokmål).
 - DO NOT wrap the code in markdown code blocks like \\\`\\\`\\\`html ... \\\`\\\`\\\`. Start directly with <style> and end with </div>. No conversational pre-text or post-text.`;
 
-
 export async function GET(request: Request) {
+  const authHeader = request.headers.get("authorization");
+
+  if (authHeader !== "Bearer ${process.env.CRON_SECRET}") {
+    return new NextResponse("Unauthorized", { status: 401 });
+  }
+
   const client = new Perplexity({
     apiKey: process.env["PERPLEXITY_API_KEY"], // This is the default and can be omitted
   });
